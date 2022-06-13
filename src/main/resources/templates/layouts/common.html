@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	<body>
+		<nav class="navbar navbar-expand-lg fixed-top navbar-dark" layout:fragment="nav">
+			<div class="container">
+				<img th:src="@{/images/icons/logo.png}" class="brand">
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav ms-auto">
+						<li class="nav-item">
+							<img th:src="@{/images/icons/bell.svg}"alt="Bootstrap" width="32" height="32">
+							メール配信停止
+						</li>
+						<li class="nav-item">
+							<img th:src="@{/images/icons/bell-slash.svg}"alt="Bootstrap" width="32" height="32">
+							メール配信開始
+						</li>
+						<li class="nav-item">
+							<img th:src="@{/images/icons/box-arrow-right.svg}"alt="Bootstrap" width="32" height="32">
+							ログアウト
+						</li>
+						<li class="nav-item">
+							<img th:src="@{/images/icons/vector-pen.svg}"alt="Bootstrap" width="32" height="32">
+							通知登録
+						</li>
+						<li class="nav-item">
+							<img th:src="@{/images/icons/box-arrow-in-right.svg}"alt="Bootstrap" width="32" height="32">
+							ログイン
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<div id="messages" layout:fragment="messages" th:if="!${#lists.isEmpty(#fields.detailedErrors())}">
+			<ul>
+				<li th:each="error : ${#fields.detailedErrors()}" class="error-message" th:text="${error.message}" />
+			</ul>
+		</div>
+	</body>
+</html>
