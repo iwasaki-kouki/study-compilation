@@ -17,6 +17,7 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import com.example.whenandwhattime.filter.FormAuthenticationProvider;
 import com.example.whenandwhattime.repository.UserRepository;
 
+@SuppressWarnings("deprecation")
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -55,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .invalidateHttpSession(true).permitAll().and().csrf()
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 // form
-                .and().formLogin().loginPage("/login").defaultSuccessUrl("/topics").failureUrl("/login-failure")
+                .and().formLogin().loginPage("/login").defaultSuccessUrl("/home").failureUrl("/login-failure")
                 .permitAll();
         // @formatter:on
     }
