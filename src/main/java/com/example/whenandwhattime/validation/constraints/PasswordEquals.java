@@ -16,7 +16,7 @@ import javax.validation.ReportAsSingleViolation;
 @ReportAsSingleViolation
 public @interface PasswordEquals {
 
-    String message() default "{com.example.pictgram.validation.constraints.PasswordEquals.message}";
+    String message() default "{com.example.whenandwhattime.validation.constraints.PasswordEquals.message}";
 
     Class<?>[] groups() default {};
 
