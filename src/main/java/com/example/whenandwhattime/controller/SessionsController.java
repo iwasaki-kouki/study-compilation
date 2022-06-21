@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 
 @Controller
-public class ß {
+public class SessionsController {
 
     @GetMapping(path = "/login")
     public String index() {
