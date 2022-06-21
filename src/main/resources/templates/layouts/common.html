@@ -3,32 +3,46 @@
 	<body>
 		<nav class="navbar navbar-expand-lg fixed-top navbar-dark" layout:fragment="nav">
 			<div class="container">
-				<img th:src="@{/images/icons/logo.png}" class="brand">
+				<a class="naber-brand" th:href="@{/home}">
+					<img th:src="@{/images/icons/logo.png}" class="brand">
+				</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbarNav">
 					<ul class="navbar-nav ms-auto">
-						<li class="nav-item">
-							<img th:src="@{/images/icons/bell.svg}"alt="Bootstrap" width="32" height="32">
-							メール配信停止
-						</li>
-						<li class="nav-item">
-							<img th:src="@{/images/icons/bell-slash.svg}"alt="Bootstrap" width="32" height="32">
-							メール配信開始
-						</li>
-						<li class="nav-item">
-							<img th:src="@{/images/icons/box-arrow-right.svg}"alt="Bootstrap" width="32" height="32">
-							ログアウト
-						</li>
-						<li class="nav-item">
-							<img th:src="@{/images/icons/vector-pen.svg}"alt="Bootstrap" width="32" height="32">
-							通知登録
-						</li>
-						<li class="nav-item">
-							<img th:src="@{/images/icons/box-arrow-in-right.svg}"alt="Bootstrap" width="32" height="32">
-							ログイン
-						</li>
+						<!-- ログインしたら出てくる物 -->
+						<th:block sec:authorize="isAuthenticated()">
+							<li class="nav-item">
+									<img th:src="@{/images/icons/bell.svg}"alt="Bootstrap" width="32" height="32">
+									メール配信停止
+							</li>
+							<li class="nav-item">
+									<img th:src="@{/images/icons/bell-slash.svg}"alt="Bootstrap" width="32" height="32">
+									メール配信開始
+							</li>
+							<li class="nav-item">
+								<a th:href="@{/logout}" class="nav-link convert" data-method="post" th:data-_csrf="${_csrf.token}">
+									<img th:src="@{/images/icons/box-arrow-right.svg}"alt="Bootstrap" width="32" height="32">
+									ログアウト
+								</a>
+							</li>
+						</th:block>
+						<th:block sec:authorize="!isAuthenticated()">
+						<!-- ログインしてないと出てくるもの -->
+							<li class="nav-item">
+								<a class="nav-link" th:href="@{/users/new}">
+									<img th:src="@{/images/icons/vector-pen.svg}"alt="Bootstrap" width="32" height="32">
+									通知登録
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" th:href="@{/login}">
+									<img th:src="@{/images/icons/box-arrow-in-right.svg}"alt="Bootstrap" width="32" height="32">
+									ログイン
+								</a>
+							</li>
+						</th:block>
 					</ul>
 				</div>
 			</div>

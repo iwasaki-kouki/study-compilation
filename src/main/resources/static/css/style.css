@@ -36,5 +36,7 @@ nav.navbar {
     padding-top: 40px; }
   .pages-home-wrapper ul {
     justify-content: center; }
+  .pages-home-wrapper .pagination {
+    margin-bottom: 0px; }
 
 /*# sourceMappingURL=style.css.map */
