@@ -26,9 +26,14 @@ import lombok.Data;
 public class User implements UserDetails, UserInf {
 	private static final long serialVersionUID = 1L;
 	
-	public enum Authority {
+    public enum Authority {
         ROLE_USER,
-	};
+    };
+    
+    
+    public User() {
+        super();
+    }
 	
 	
 

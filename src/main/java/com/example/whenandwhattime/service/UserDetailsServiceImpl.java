@@ -17,9 +17,10 @@ import org.slf4j.LoggerFactory;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 	
+	
+	@Autowired
 	private UserRepository repository;
 
-    @Autowired
     protected static Logger log = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
     
     @Override
