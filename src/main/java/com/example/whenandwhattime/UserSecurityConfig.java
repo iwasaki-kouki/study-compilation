@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -17,11 +18,10 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import com.example.whenandwhattime.filter.FormAuthenticationProvider;
 import com.example.whenandwhattime.repository.UserRepository;
 
-@SuppressWarnings("deprecation")
 @Configuration
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    protected static Logger log = LoggerFactory.getLogger(SecurityConfig.class);
+    protected static Logger log = LoggerFactory.getLogger(UserSecurityConfig.class);
 
     @Autowired
     private UserRepository repository;
@@ -66,10 +66,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider);
     }
-
+    
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+    
+    
 
 }

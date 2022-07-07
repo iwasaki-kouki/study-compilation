@@ -1,5 +1,5 @@
 spring:
-  mvc:
+ mvc:
     hiddenmethod:
       filter:
         enabled: true

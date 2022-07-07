@@ -27,6 +27,11 @@
 									ログアウト
 								</a>
 							</li>
+							<li class="nav-item">
+								<a th:href="@{/login}" class="nav-link convert">
+									Admin
+								</a>
+							</li>
 						</th:block>
 						<th:block sec:authorize="!isAuthenticated()">
 						<!-- ログインしてないと出てくるもの -->
@@ -53,4 +58,6 @@
 			</ul>
 		</div>
 	</body>
+
+	
 </html>
