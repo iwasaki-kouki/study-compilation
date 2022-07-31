@@ -15,23 +15,23 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
-import com.example.whenandwhattime.filter.FormAuthenticationProvider;
-import com.example.whenandwhattime.repository.UserRepository;
+import com.example.whenandwhattime.filter.AdFormAuthenticationProvider;
+import com.example.whenandwhattime.repository.AdminRepository;
 
 @Configuration
-@Order(2)
-public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
+@Order(1)
+public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    protected static Logger log = LoggerFactory.getLogger(UserSecurityConfig.class);
+    protected static Logger log = LoggerFactory.getLogger(AdminSecurityConfig.class);
 
     @Autowired
-    private UserRepository repository;
+    private AdminRepository repository;
 
     @Autowired
     UserDetailsService service;
 
     @Autowired
-    private FormAuthenticationProvider authenticationProvider;
+    private AdFormAuthenticationProvider authenticationProvider;
 
     private static final String[] URLS = { "/css/**", "/images/**", "/scripts/**", "/h2-console/**" };
 
@@ -49,16 +49,16 @@ public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // @formatter:off
-        http.antMatcher("/**").authorizeRequests().antMatchers("/**").permitAll()
+        http.antMatcher("/admin/**").authorizeRequests().antMatchers("/admin/login").permitAll()
                 .anyRequest().authenticated()
                 // ログアウト処理
-                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/logout-complete").clearAuthentication(true)
+                .and().logout().logoutUrl("/admin/logout").logoutSuccessUrl("/admin/logout-complete").clearAuthentication(true)
                 .deleteCookies("JSESSIONID")
                 .invalidateHttpSession(true).permitAll().and().csrf()
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 // form
                 .and().formLogin()
-                	.loginPage("/login").defaultSuccessUrl("/home").failureUrl("/login-failure")
+                	.loginPage("/admin/login").defaultSuccessUrl("/home").failureUrl("/admin/login-failure")
                 .permitAll();
         // @formatter:on
     }
@@ -67,9 +67,11 @@ public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider);
     }
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-
-    
     
 
 }

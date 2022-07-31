@@ -35,9 +35,12 @@ CREATE TABLE IF NOT EXISTS livers(
 CREATE TABLE IF NOT EXISTS favorites(
 	id SERIAL NOT NULL,
 	  user_id INT NOT NULL,
-	  topic_id INT NOT NULL,
+	  livers_id INT NOT NULL,
 	  PRIMARY KEY (id)
 );
 
 ALTER TABLE favorite ADD CONSTRAINT FK_favorite_users FOREIGN KEY (user_id) REFERENCES users;
-ALTER TABLE favorite ADD CONSTRAINT FK_favorite_topic FOREIGN KEY (topic_id) REFERENCES topic;
+ALTER TABLE favorite ADD CONSTRAINT FK_favorite_topic FOREIGN KEY (livers_id) REFERENCES livers;
+
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO wawt;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO wawt;

@@ -3,7 +3,7 @@
 	<body>
 		<nav class="navbar navbar-expand-lg fixed-top navbar-dark" layout:fragment="nav">
 			<div class="container">
-				<a class="naber-brand" th:href="@{/}">
+				<a class="naber-brand" th:href="@{/home}">
 					<img th:src="@{/images/icons/logo.png}" class="brand">
 				</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -12,7 +12,16 @@
 				<div class="collapse navbar-collapse" id="navbarNav">
 					<ul class="navbar-nav ms-auto">
 						<!-- ログインしたら出てくる物 -->
-						<th:block sec:authorize="isAuthenticated()">
+						<th:block sec:authorize="hasRole('ROLE_ADMIN')">
+							<li class="nav-item">
+								<a th:href="@{/admin/logout}" class="nav-link convert" data-method="post" th:data-_csrf="${_csrf.token}">
+									<img th:src="@{/images/icons/box-arrow-right.svg}"alt="Bootstrap" width="32" height="32">
+									ログアウト
+								</a>
+							</li>
+						</th:block>
+						
+						<th:block sec:authorize="hasRole('ROLE_USER')">
 							<li class="nav-item">
 									<img th:src="@{/images/icons/bell.svg}"alt="Bootstrap" width="32" height="32">
 									メール配信停止
@@ -27,12 +36,10 @@
 									ログアウト
 								</a>
 							</li>
-							<li class="nav-item">
-								<a th:href="@{/login}" class="nav-link convert">
-									Admin
-								</a>
-							</li>
 						</th:block>
+						
+
+						
 						<th:block sec:authorize="!isAuthenticated()">
 						<!-- ログインしてないと出てくるもの -->
 							<li class="nav-item">
