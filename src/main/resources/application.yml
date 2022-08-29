@@ -3,3 +3,5 @@ spring:
     hiddenmethod:
       filter:
         enabled: true
+image:
+  local: true
