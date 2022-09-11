@@ -24,20 +24,20 @@ public class Livers implements Serializable{
     @Id
     @SequenceGenerator(name = "Livers_id_seq")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
-
-    @Column(nullable = false)
-    private String twitter;
+    private Long id;
     
     @Column(nullable = false)
-    private String youtube;
+    private String name;
+
+    @Column(nullable = false)
+    private String twitter_url;
+    
+    @Column(nullable = false)
+    private String youtube_url;
     
     @Column(nullable = false)
     private String thumbnail;
 
-    @ManyToOne
-    @JoinColumn(name = "userId", insertable = false, updatable = false)
-    private User user;
     
     
 }

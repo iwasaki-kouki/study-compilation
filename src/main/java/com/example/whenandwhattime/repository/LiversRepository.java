@@ -8,5 +8,5 @@ import com.example.whenandwhattime.entity.Livers;
 @Repository
 public interface LiversRepository extends JpaRepository<Livers, Long> {
 
-    Iterable<Livers> findAllByOrderByUpdatedAtDesc();
+	 Iterable<Livers> findAllByOrderByIdDesc();
 }

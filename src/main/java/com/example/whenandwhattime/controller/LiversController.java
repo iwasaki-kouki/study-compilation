@@ -10,7 +10,6 @@ import java.io.InputStream;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -57,21 +56,19 @@ public class LiversController {
     private String imageLocal;
     
     @GetMapping(path="/livers")
-    public String index(Principal principal, Model model) throws IOException {
-    	Authentication authentication = (Authentication) principal;
-        UserInf user = (UserInf) authentication.getPrincipal();
-        
-        Iterable<Livers> Livers = repository.findAllByOrderByUpdatedAtDesc();       
-        List<LiverForm> list = new ArrayList<>();
-        for (Livers entity : Livers) {
-            LiverForm form = getLivers(user, entity);
+    public String index(Model model) throws IOException {
+    	Iterable<Livers> livers = repository.findAll();
+    	List<LiverForm> list = new ArrayList<>();
+    	for (Livers entity : livers) {
+            LiverForm form = getLivers(entity);
             list.add(form);
         }
-        model.addAttribute("list", list);
-        return "topics/index";
+    	model.addAttribute("list", list);
+    	
+        return "liver/index";
     }
     
-    public LiverForm getLivers(UserInf user,Livers entity) throws FileNotFoundException, IOException {
+    public LiverForm getLivers(Livers entity) throws FileNotFoundException, IOException {
         modelMapper.getConfiguration().setAmbiguityIgnored(true);
         modelMapper.typeMap(Livers.class, LiverForm.class).addMappings(mapper -> mapper.skip(LiverForm::setUser));
 
@@ -99,13 +96,10 @@ public class LiversController {
             }
         }
 
-        UserForm userForm = modelMapper.map(entity.getUser(), UserForm.class);
-        form.setUser(userForm);
 
         return form;
     }
     
-    @SuppressWarnings("unused")
 	private String getMimeType(String path) {
         String extension = FilenameUtils.getExtension(path);
         String mimeType = "image/";
@@ -124,13 +118,16 @@ public class LiversController {
         return mimeType;
     }
     
-    @GetMapping(path = "/topics/new")
+	
+	
+	
+    @GetMapping(path = "/liver/new")
     public String newTopic(Model model) {
         model.addAttribute("form", new LiverForm());
-        return "topics/new";
+        return "liver/liverform";
     }
 
-    @RequestMapping(value = "/topic", method = RequestMethod.POST)
+    @RequestMapping(value = "/liverform", method = RequestMethod.POST)
     public String create(Principal principal, @Validated @ModelAttribute("form") LiverForm form, BindingResult result,
             Model model, @RequestParam MultipartFile image, RedirectAttributes redirAttrs)
             throws IOException {
@@ -138,7 +135,7 @@ public class LiversController {
             model.addAttribute("hasMessage", true);
             model.addAttribute("class", "alert-danger");
             model.addAttribute("message", "投稿に失敗しました。");
-            return "topics/new";
+            return "liver/liverform";
         }
 
         boolean isImageLocal = false;
@@ -147,24 +144,23 @@ public class LiversController {
         }
 
         Livers entity = new Livers();
-        Authentication authentication = (Authentication) principal;
-        UserInf user = (UserInf) authentication.getPrincipal();
-        entity.setId(user.getUserId());
         File destFile = null;
         if (isImageLocal) {
             destFile = saveImageLocal(image, entity);
-            entity.setPath(destFile.getAbsolutePath());
+            entity.setThumbnail(destFile.getAbsolutePath());
         } else {
-            entity.setPath("");
-        }
-        entity.setDescription(form.getDescription());
+            entity.setThumbnail("");
+        };
+        entity.setName(form.getName());
+        entity.setTwitter_url(form.getTwitter_URL());
+        entity.setYoutube_url(form.getYoutube_URL());
         repository.saveAndFlush(entity);
 
         redirAttrs.addFlashAttribute("hasMessage", true);
         redirAttrs.addFlashAttribute("class", "alert-info");
         redirAttrs.addFlashAttribute("message", "投稿に成功しました。");
 
-        return "redirect:/topics";
+        return "redirect:/livers";
     }
 
     private File saveImageLocal(MultipartFile image, Livers entity) throws IOException {
@@ -182,7 +178,5 @@ public class LiversController {
 
         return destFile;
     }
-
-}
 
 }

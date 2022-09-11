@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/layout}">
+  <head>
+    <title>ライバー登録</title>
+  </head>
+  <body>
+<div class="topics-new-wrapper" layout:fragment="contents">
+  <div class="container">
+    <div class="row p-form-top d-none d-lg-block d-xl-block d-xxl-block"></div>
+    <div class="row">
+      <div class="col-md-6 mx-auto">
+        <h1 class="text-center">ライバー登録</h1>
+        
+        
+        <form class="new_topic" id="new_topic" method="post" th:action="@{/liverform}" th:object="${form}" enctype="multipart/form-data">
+          <div layout:replace="~{layouts/common::messages}"></div>
+          <input type="hidden" th:field="*{id}" />
+          
+          <div class="mb-3">
+            <label class="form-label text-black" for="topic_description">名前</label>
+            <textarea class="form-control" th:field="*{name}" rows="1" th:errorclass="error-field"></textarea><p th:if="${#fields.hasErrors('name')}" class="error-message" th:errors="*{name}"></p>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label text-black" for="topic_description">YoutubeURL</label>
+            <textarea class="form-control" th:field="*{youtube_URL}" rows="1" th:errorclass="error-field"></textarea><p th:if="${#fields.hasErrors('youtube_URL')}" class="error-message" th:errors="*{youtube_URL}"></p>
+          </div>
+                    
+          <div class="mb-3">
+            <label class="form-label text-black" for="topic_description">TwitterURL</label>
+            <textarea class="form-control" th:field="*{twitter_URL}" rows="1" th:errorclass="error-field"></textarea><p th:if="${#fields.hasErrors('twitter_URL')}" class="error-message" th:errors="*{twitter_URL}"></p>
+          </div>
+          
+          <div class="mb-3">
+            <label class="form-label text-black" for="topic_image">サムネイル</label>
+            <input type="file" class="form-control-file" th:field="*{image}" /><p th:if="${#fields.hasErrors('image')}" class="error-message" th:errors="*{image}"></p>
+          </div>
+          
+          <input type="submit" value="投稿" class="btn w-100 btn-outline-dark" />
+        </form>
+        
+      </div>
+    </div>
+  </div>
+</div>
+  </body>
+</html>

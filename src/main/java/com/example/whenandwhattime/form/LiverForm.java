@@ -13,7 +13,6 @@ public class LiverForm {
 
     private Long id;
     
-    private Long userId;
     
     @ImageNotEmpty
     @ImageByte(max = 2000000)
