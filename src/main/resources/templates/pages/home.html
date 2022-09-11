@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
+
+<head>
+<title>Schedule</title>
+</head>
+
+<body>
+	<div class="pages-home-wrapper text-center" layout:fragment="contents">
+		<a class="row btn btn-dark container-fluid" href="/livers"
+      	   role="button" aria-expanded="false" aria-controls="collapseExample">ライバー一覧</a>
+	
+	
+	
+		<div class="container">
+			<div class=row>
+				<!-- 時間切り替え -->
+				<div class="col-7 col-lg-7">
+					<div class="container row">
+						<nav aria-label="AM-PM">
+							<ul class="pagination" style="margin-bottom:0px">
+								<li class="page-item col-6 col-lg-6"><a class="page-link" href="#">AM</a></li>
+								<li class="page-item col-6 col-lg-6"><a class="page-link" href="#">PM</a></li>
+						  	</ul>
+				  		</nav>
+				  	</div>
+				<!-- スケジュールライン -->
+					<th:block th:each="i : ${#numbers.sequence(0,12)}">
+						<p th:text="${i}"></p><!-- 0 1 2 3が出力される -->
+					</th:block>
+				</div>
+			
+			<!-- ニュースライン -->
+				<div class="col-3 col-lg-3 offset-1">
+				<div class="container">
+					<div class="row">
+					<a>NEWS</a>
+					</div>
+					<div class="row">
+					<a>暇ならこのランダム動画</a>
+					</div>
+				</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 100;
+}
+#messages {
+  ul{
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    padding: 4px;
+    color: black;
+    li {
+      list-style: none;
+      padding: 4px 8px;
+      font-size: 18px;
+    }
+  }
+}
+.error-message {
+  color: red;
+}
+.error-field {
+  background-color: rgba(255,192,203,0.8);
+}
+nav.navbar {
+  background-color: rgba(255,255,255,1);
+  border: 1px solid transparent;
+  border-color: white;
+  border-width: 0 0 1px;
+  margin-bottom: 20px;
+  padding: 0;
+  a {
+    color: #fff;
+  }
+  img {
+    height: 40px;
+  }
+}
+.pages-home-wrapper {
+  width: 100vw;
+  height: 100vh;
+  
+  .row.btn{
+    padding-top: 60px;
+  }
+  ul{
+	justify-content:center;
+	}
+
+  .pagination{
+	margin-bottom: 0px;
+	}
+}

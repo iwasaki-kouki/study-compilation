@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/layout}">
+  <head>
+    <title>ライバー一覧</title>
+  </head>
+  <body>
+  	<div class="liver-index-wrapper" layout:fragment="contents">
+		<div class="container">
+			<div class="row col-12 my-box" style="height: 58px;">
+			</div>
+				<div class="row row-cols-3" >
+					<div class="col"　th:each="livers : ${list}">
+						<!--一段目-->
+						<div class="container">
+							<div class="row row-cols-2">
+								<!--画像-->
+								<div class="col-12">
+									<img src="" th:if="${@environment.getProperty('image.local')}" th:src="${livers.imageData}" class="image" width="295"  height="295"/>
+									<img src="" th:unless="${@environment.getProperty('image.local')}" th:src="${livers.path}" class="image" width="295"  height="295"/>
+								</div>
+								<!--リンク-->
+								<a th:href="${livers.youtube_URL}">
+									<img th:src="@{/images/icons/youtube.png}" width="147.5" height="97.5">
+								</a>
+							</div>
+						</div>
+						<!--2段目-->
+						
+						<!--3段目-->
+						
+						
+					</div>
+				</div>
+
+		</div>
+	</div>
+  </body>
+</html>
