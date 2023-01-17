@@ -2,20 +2,37 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.7.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+	
+	
 	<groupId>com.example.when-and-what-time</groupId>
 	<artifactId>when-and-what-time-1</artifactId>
+	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>when-and-what-time-1</name>
-	<description>Pictgram</description>
+	<description>wawt</description>
+	
 	<properties>
 		<java.version>11</java.version>
+		<project.youtube.version>v3-rev8-1.12.0-beta</project.youtube.version>
+    	<project.http.version>1.12.0-beta</project.http.version>
+   		<project.oauth.version>1.12.0-beta</project.oauth.version>
+    	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+	
+	<repositories>
+	    <repository>
+	      <id>google-api-services</id>
+	      <url>http://google-api-client-libraries.appspot.com/mavenrepo</url>
+	    </repository>
+	</repositories>	
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -85,7 +102,24 @@
 		  <artifactId>commons-fileupload</artifactId>
 		  <version>1.4</version>
 		</dependency>
-	</dependencies>
+		<dependency>
+		    <groupId>com.google.apis</groupId>
+		    <artifactId>google-api-services-youtube</artifactId>
+		    <version>v3-rev222-1.25.0</version>
+		</dependency>
+		 <dependency>
+	      <groupId>com.google.http-client</groupId>
+	      <artifactId>google-http-client-jackson2</artifactId>
+	      <version>1.42.2</version>
+	    </dependency>
+		<dependency>
+		  <groupId>org.springframework.boot</groupId>
+		  <artifactId>spring-boot-starter-tomcat</artifactId>
+		  <scope>provided</scope>
+		</dependency>
+		
+		
+		</dependencies>
 
 	<build>
 		<plugins>
@@ -101,6 +135,7 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			
 			<plugin>
 			  <groupId>nl.geodienstencentrum.maven</groupId>
 			  <artifactId>sass-maven-plugin</artifactId>
@@ -129,6 +164,28 @@
 			    </sassOptions>
 			  </configuration>
 			</plugin>
+			
+			<plugin>
+	        <groupId>org.codehaus.mojo</groupId>
+	        <artifactId>exec-maven-plugin</artifactId>
+	        <version>1.2.1</version>
+	        <configuration>
+	          <mainClass>com.example.whenandwhattime.youtube</mainClass>
+	        </configuration>
+	      </plugin>
+	
+	      <!-- Forces Maven to use Java 1.6 -->
+	      <plugin>
+	        <artifactId>maven-compiler-plugin</artifactId>
+	        <version>2.3.2</version>
+	        <configuration>
+	          <source>1.6</source>
+	          <target>1.6</target>
+	          <compilerArgument></compilerArgument>
+	        </configuration>
+	      </plugin>
+
+
 		</plugins>
 	</build>
 

@@ -68,6 +68,19 @@ public class LiversController {
         return "liver/index";
     }
     
+    @GetMapping(path="adminlivers")
+    public String aminindex(Model model) throws IOException {
+    	Iterable<Livers> livers = repository.findAll();
+    	List<LiverForm> list = new ArrayList<>();
+    	for (Livers entity : livers) {
+            LiverForm form = getLivers(entity);
+            list.add(form);
+        }
+    	model.addAttribute("list", list);
+    	
+        return "admin/liver";
+    }
+    
     public LiverForm getLivers(Livers entity) throws FileNotFoundException, IOException {
         modelMapper.getConfiguration().setAmbiguityIgnored(true);
         modelMapper.typeMap(Livers.class, LiverForm.class).addMappings(mapper -> mapper.skip(LiverForm::setUser));
@@ -95,8 +108,6 @@ public class LiversController {
                 form.setImageData(data.toString());
             }
         }
-
-
         return form;
     }
     
@@ -154,6 +165,7 @@ public class LiversController {
         entity.setName(form.getName());
         entity.setTwitter_url(form.getTwitter_URL());
         entity.setYoutube_url(form.getYoutube_URL());
+        entity.setLanguage(form.getLanguage());
         repository.saveAndFlush(entity);
 
         redirAttrs.addFlashAttribute("hasMessage", true);
@@ -178,5 +190,7 @@ public class LiversController {
 
         return destFile;
     }
+    
+    
 
 }

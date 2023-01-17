@@ -55,7 +55,7 @@ public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 // form
                 .and().formLogin()
-                	.loginPage("/login").defaultSuccessUrl("/home").failureUrl("/login-failure")
+                	.loginPage("/login").defaultSuccessUrl("/").failureUrl("/login-failure")
                 .permitAll();
         // @formatter:on
     }

@@ -20,23 +20,33 @@
           <input type="hidden" th:field="*{id}" />
           
           <div class="mb-3">
-            <label class="form-label text-black" for="topic_description">名前</label>
+            <label class="form-label text-black" for="name">名前</label>
             <textarea class="form-control" th:field="*{name}" rows="1" th:errorclass="error-field"></textarea><p th:if="${#fields.hasErrors('name')}" class="error-message" th:errors="*{name}"></p>
           </div>
 
           <div class="mb-3">
-            <label class="form-label text-black" for="topic_description">YoutubeURL</label>
+            <label class="form-label text-black" for="youtube_URL">YoutubeURL</label>
             <textarea class="form-control" th:field="*{youtube_URL}" rows="1" th:errorclass="error-field"></textarea><p th:if="${#fields.hasErrors('youtube_URL')}" class="error-message" th:errors="*{youtube_URL}"></p>
           </div>
                     
           <div class="mb-3">
-            <label class="form-label text-black" for="topic_description">TwitterURL</label>
+            <label class="form-label text-black" for="twitte_URL">TwitterURL</label>
             <textarea class="form-control" th:field="*{twitter_URL}" rows="1" th:errorclass="error-field"></textarea><p th:if="${#fields.hasErrors('twitter_URL')}" class="error-message" th:errors="*{twitter_URL}"></p>
           </div>
           
           <div class="mb-3">
-            <label class="form-label text-black" for="topic_image">サムネイル</label>
+            <label class="form-label text-black" for="image">サムネイル</label>
             <input type="file" class="form-control-file" th:field="*{image}" /><p th:if="${#fields.hasErrors('image')}" class="error-message" th:errors="*{image}"></p>
+          </div>
+          
+          <div class="mb-3">
+            <label class="desabbledSelct" for="language">言語</label>
+            <select class="desabledSelect" th:field="*{language}" >
+				  <option value="日本語">日本語</option>
+				  <option value="韓国語">韓国語</option>
+				  <option value="インドネシア">インドネシア</option>
+				  <option value="英語">英語</option>
+            </select>
           </div>
           
           <input type="submit" value="投稿" class="btn w-100 btn-outline-dark" />

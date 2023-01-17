@@ -38,6 +38,7 @@ public class Livers implements Serializable{
     @Column(nullable = false)
     private String thumbnail;
 
-    
+    @Column(nullable = false)
+    private String language;
     
 }

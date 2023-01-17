@@ -27,6 +27,8 @@ public class LiverForm {
     private String twitter_URL;
     
     private String youtube_URL;
+    
+    private String language;    
 
     private UserForm user;
 

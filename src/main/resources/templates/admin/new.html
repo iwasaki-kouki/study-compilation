@@ -15,7 +15,9 @@
 
       <main class="col-md-4 mx-auto">
         <h1 class="text-center text-white">Sign in</h1>
+        
         <form method="post" th:action="@{/admin}" th:object="${form}">
+        
           <div layout:replace="~{layouts/common::messages}"></div>
           <div class="mb-3">
             <label class="form-label text-white" for="user_email">Email</label>

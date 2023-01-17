@@ -2,8 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 	<body>
 		<nav class="navbar navbar-expand-lg fixed-top navbar-dark" layout:fragment="nav">
+		
 			<div class="container">
-				<a class="naber-brand" th:href="@{/home}">
+				<a class="naber-brand" th:href="@{/}">
 					<img th:src="@{/images/icons/logo.png}" class="brand">
 				</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,9 +17,16 @@
 							<li class="nav-item">
 								<a class="nav-link" th:href="@{/liver/new}">
 									<img th:src="@{/images/icons/bell-slash.svg}"alt="Bootstrap" width="32" height="32">
-									ライバー登録
+									ライバー登録s
 								</a>
 							</li>
+							<li class="nav-item">
+								<a class="nav-link" th:href="@{/adminlivers}">
+									<img th:src="@{/images/icons/bell-slash.svg}"alt="Bootstrap" width="32" height="32">
+									ライバー一覧
+								</a>
+							</li>
+
 							<li class="nav-item">
 								<a th:href="@{/admin/logout}" class="nav-link convert" data-method="post" th:data-_csrf="${_csrf.token}">
 									<img th:src="@{/images/icons/box-arrow-right.svg}"alt="Bootstrap" width="32" height="32">

@@ -49,7 +49,7 @@ public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // @formatter:off
-        http.antMatcher("/admin/**").authorizeRequests().antMatchers("/admin/login").permitAll()
+        http.antMatcher("/admin/**").authorizeRequests().antMatchers("/admin/**").permitAll()
                 .anyRequest().authenticated()
                 // ログアウト処理
                 .and().logout().logoutUrl("/admin/logout").logoutSuccessUrl("/admin/logout-complete").clearAuthentication(true)
@@ -58,7 +58,7 @@ public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 // form
                 .and().formLogin()
-                	.loginPage("/admin/login").defaultSuccessUrl("/home").failureUrl("/admin/login-failure")
+                	.loginPage("/admin/login").defaultSuccessUrl("/").failureUrl("/admin/login-failure")
                 .permitAll();
         // @formatter:on
     }

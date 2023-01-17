@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<!-- saved from url=(0026)http://localhost:8080/home -->
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="./Schedule_files/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+	<link rel="stylesheet" href="./Schedule_files/bootstrap-icons.css">
+	<link rel="stylesheet" href="./Schedule_files/style.css">
+	
+	<title>Schedule</title>
+	
+	</head>
+	<body>
+		
+		
+		<nav class="navbar navbar-expand-lg fixed-top navbar-dark">
+			<div class="container">
+				<a class="naber-brand" href="http://localhost:8080/home">
+					<img src="./Schedule_files/logo.png" class="brand">
+				</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav ms-auto">
+						<!-- ログインしたら出てくる物 -->
+						
+						
+						
+						
+
+						
+						
+						<!-- ログインしてないと出てくるもの -->
+							<li class="nav-item">
+								<a class="nav-link" href="http://localhost:8080/admin/new">
+									<img src="./Schedule_files/vector-pen.svg" alt="Bootstrap" width="32" height="32">
+									利用者登録
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="http://localhost:8080/login">
+									<img src="./Schedule_files/box-arrow-in-right.svg" alt="Bootstrap" width="32" height="32">
+									ログイン
+								</a>
+							</li>
+						
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<div class="pages-home-wrapper text-center">
+		<a class="row btn btn-dark container-fluid" href="http://localhost:8080/livers" role="button" aria-expanded="false" aria-controls="collapseExample">ライバー一覧</a>
+	
+	
+	
+		<div class="container">
+			<div class="row">
+				<!-- 時間切り替え -->
+				<div class="col-7 col-lg-7">
+					<div class="container row">
+						<nav aria-label="AM-PM">
+							<ul class="pagination" style="margin-bottom:0px">
+								<li class="page-item col-6 col-lg-6"><a class="page-link" href="http://localhost:8080/home#">AM</a></li>
+								<li class="page-item col-6 col-lg-6"><a class="page-link" href="http://localhost:8080/home#">PM</a></li>
+						  	</ul>
+				  		</nav>
+				  	</div>
+				<!-- スケジュールライン -->
+					
+						<p>0</p><!-- 0 1 2 3が出力される -->
+					
+						<p>1</p><!-- 0 1 2 3が出力される -->
+					
+						<p>2</p><!-- 0 1 2 3が出力される -->
+					
+						<p>3</p><!-- 0 1 2 3が出力される -->
+					
+						<p>4</p><!-- 0 1 2 3が出力される -->
+					
+						<p>5</p><!-- 0 1 2 3が出力される -->
+					
+						<p>6</p><!-- 0 1 2 3が出力される -->
+					
+						<p>7</p><!-- 0 1 2 3が出力される -->
+					
+						<p>8</p><!-- 0 1 2 3が出力される -->
+					
+						<p>9</p><!-- 0 1 2 3が出力される -->
+					
+						<p>10</p><!-- 0 1 2 3が出力される -->
+					
+						<p>11</p><!-- 0 1 2 3が出力される -->
+					
+						<p>12</p><!-- 0 1 2 3が出力される -->
+					
+				</div>
+			
+			<!-- ニュースライン -->
+				<div class="col-3 col-lg-3 offset-1">
+				<div class="container">
+					<div class="row">
+					<a>NEWS</a>
+					</div>
+					<div class="row">
+					<a>暇ならこのランダム動画</a>
+					</div>
+				</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+		<script src="./Schedule_files/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+		<script src="./Schedule_files/jquery.min.js"></script>
+		<script src="./Schedule_files/method-convert.js"></script>
+		<script>
+	        $(function(){
+	        	convertMethod('.convert');
+	            $(".alert").fadeOut(5000);
+	        });
+	    </script>
+	
+</body></html>

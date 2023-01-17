@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layouts/layout}">
+  <head>
+    <title>ライバー一覧</title>
+  </head>
+  <body>
+  	<div class="liver-index-wrapper" layout:fragment="contents">
+  		<div class="container">
+		  	<div class="row p-form-top d-none d-lg-block d-xl-block d-xxl-block"></div>
+				<!-- 管理画面のテーブル -->
+	  			<table border="1">
+	  				<thead>
+						<tr>
+							<th>ID</th>
+							<th>名前</th>
+							<th>言語</th>
+							<th>削除</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="livers : ${list}">
+							<td th:text="${livers.id}"></td>
+							<td th:text="${livers.name}"></td>
+							<td th:text="${livers.language}"></td>
+							<td>削除</td>
+						</tr>
+					</tbody>
+	
+	  			</table>
+	  		</div>
+
+
+	</div>
+  </body>
+</html>
