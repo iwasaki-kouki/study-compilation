@@ -12,11 +12,12 @@ import org.xml.sax.SAXException;
 public class Rss {
 
     public static void main(String[] args) {
-        String path = "https://www.youtube.com/feeds/videos.xml?channel_id=UCspv01oxUFf_MTSipURRhkA";
+        String path = "https://www.youtube.com/feeds/videos.xml?channel_id=UCCHH0nWYXFZmtDS_4tvMxHQ";
         parseXML(path);
     }
 
     public static void parseXML(String path) {
+    	
         try {
             DocumentBuilderFactory  factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder         builder = factory.newDocumentBuilder();
@@ -30,7 +31,7 @@ public class Rss {
 
             /* Get Node list of RSS items */
             NodeList                item_list = root.getElementsByTagName("entry");
-            for (int i = 0; i <item_list.getLength(); i++) {
+            for (int i = 0; i <5; i++) {
                 Element  element = (Element)item_list.item(i);
                 NodeList item_title = element.getElementsByTagName("yt:videoId");
                 NodeList item_link  = element.getElementsByTagName("published");

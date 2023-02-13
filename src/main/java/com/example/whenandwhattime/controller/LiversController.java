@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -32,11 +33,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.whenandwhattime.entity.Livers;
 import com.example.whenandwhattime.entity.UserInf;
 import com.example.whenandwhattime.form.LiverForm;
-import com.example.whenandwhattime.form.UserForm;
+import com.example.whenandwhattime.form.EditForm;
 import com.example.whenandwhattime.repository.LiversRepository;
 
 @Controller
@@ -68,7 +70,7 @@ public class LiversController {
         return "liver/index";
     }
     
-    @GetMapping(path="adminlivers")
+    @GetMapping(path="/adminlivers")
     public String aminindex(Model model) throws IOException {
     	Iterable<Livers> livers = repository.findAll();
     	List<LiverForm> list = new ArrayList<>();
@@ -79,6 +81,47 @@ public class LiversController {
     	model.addAttribute("list", list);
     	
         return "admin/liver";
+    }
+    
+    @PostMapping(path = "/edit", params = "edit")
+    String edit(@RequestParam long id,Model model) throws IOException {
+    	Optional<Livers> liver= repository.findById(id);
+    	Livers entity =liver.get();
+    	model.addAttribute("liver", entity);
+        return "admin/edit";
+    }
+    @PostMapping(path = "/edit", params = "regist")
+    String regist(@RequestParam long id,@Validated @ModelAttribute("liver") EditForm form,BindingResult result,
+            Model model, RedirectAttributes redirAttrs) {
+        if (result.hasErrors()) {
+            model.addAttribute("hasMessage", true);
+            model.addAttribute("class", "alert-danger");
+            model.addAttribute("message", "投稿に失敗しました。");
+            return "redirect:/adminlivers";
+        }
+    	Optional<Livers> liver= repository.findById(id);
+    	Livers entity =liver.get();
+
+        entity.setName(form.getName());
+        entity.setTwitter_url(form.getTwitter_url());
+        entity.setYoutube_url(form.getYoutube_url());
+        entity.setLanguage(form.getLanguage());
+		repository.save(entity);
+
+    	return "redirect:/adminlivers";
+    }
+    
+    
+
+    @PostMapping(path = "/edit", params = "back")
+    String back() {
+        return "redirect:/adminlivers";
+    }
+    
+    @PostMapping(path = "/edit", params = "delete")
+    public String delete(@RequestParam long id) {
+    	repository.deleteById(id);
+        return "redirect:/adminlivers";
     }
     
     public LiverForm getLivers(Livers entity) throws FileNotFoundException, IOException {
@@ -138,7 +181,7 @@ public class LiversController {
         return "liver/liverform";
     }
 
-    @RequestMapping(value = "/liverform", method = RequestMethod.POST)
+    @PostMapping("/liverform")
     public String create(Principal principal, @Validated @ModelAttribute("form") LiverForm form, BindingResult result,
             Model model, @RequestParam MultipartFile image, RedirectAttributes redirAttrs)
             throws IOException {
@@ -191,6 +234,7 @@ public class LiversController {
         return destFile;
     }
     
+
     
 
 }

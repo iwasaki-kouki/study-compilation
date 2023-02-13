@@ -17,6 +17,9 @@
 							<th>ID</th>
 							<th>名前</th>
 							<th>言語</th>
+							<th>ツイッター</th>
+							<th>Youtube</th>
+							<th>編集</th>
 							<th>削除</th>
 						</tr>
 					</thead>
@@ -25,7 +28,22 @@
 							<td th:text="${livers.id}"></td>
 							<td th:text="${livers.name}"></td>
 							<td th:text="${livers.language}"></td>
-							<td>削除</td>
+							<td th:text="${livers.twitter_URL}"></td>
+							<td th:text="${livers.youtube_URL}"></td>
+							
+							<td>
+								<form th:action="@{/edit}" method="post">
+									<input type="submit" class="btn btn-outline-primary" name="edit" value="編集">
+									<input type="hidden" name="id" th:value="${livers.id}">
+								</form>
+							</td>
+							
+							<td>
+								<form th:action="@{/edit}" method="post">
+									<input type="submit" class="btn btn-outline-danger" name="delete" value="削除">
+									<input type="hidden" name="id" th:value="${livers.id}">
+								</form>
+							</td>
 						</tr>
 					</tbody>
 	
