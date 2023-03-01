@@ -30,7 +30,6 @@ public class LiverForm {
     
     private String language;    
 
-    private UserForm user;
 
 
 }

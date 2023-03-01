@@ -2,21 +2,18 @@ package com.example.whenandwhattime.form;
 
 import javax.validation.constraints.NotEmpty;
 
-import com.example.whenandwhattime.validation.constraints.PasswordEquals;
-
 import lombok.Data;
 
 @Data
-@PasswordEquals
 public class SearchForm {
 
     @NotEmpty
-    private String email;
+    private String id;
 
-    @NotEmpty
-    private String password;
-
-    @NotEmpty
-    private String passwordConfirmation;
+    private String vedioid;
+    
+    private String schedule;
+    
+    private Long livers_id;
 
 }

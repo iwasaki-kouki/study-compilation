@@ -22,7 +22,7 @@
 									<img src="" th:unless="${@environment.getProperty('image.local')}" th:src="${livers.path}" class="image" width="295"  height="295"/>
 								</div>
 								<!--リンク-->
-								<a th:href="${livers.youtube_URL}">
+								<a th:href="@{'https://www.youtube.com/channel/'+${livers.youtube_URL}+'/'}">
 									<img th:src="@{/images/icons/youtube.png}" width="147.5" height="97.5">
 								</a>
 								<a th:href="${livers.twitter_URL}">

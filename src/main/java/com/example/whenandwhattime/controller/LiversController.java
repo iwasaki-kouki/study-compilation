@@ -18,9 +18,9 @@ import org.apache.commons.io.FilenameUtils;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Base64Utils;
@@ -28,18 +28,16 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.whenandwhattime.entity.Livers;
-import com.example.whenandwhattime.entity.UserInf;
 import com.example.whenandwhattime.form.LiverForm;
 import com.example.whenandwhattime.form.EditForm;
 import com.example.whenandwhattime.repository.LiversRepository;
+
 
 @Controller
 public class LiversController {
@@ -57,6 +55,7 @@ public class LiversController {
     @Value("${image.local:false}")
     private String imageLocal;
     
+    /*ライバー一覧表示*/
     @GetMapping(path="/livers")
     public String index(Model model) throws IOException {
     	Iterable<Livers> livers = repository.findAll();
@@ -65,24 +64,29 @@ public class LiversController {
             LiverForm form = getLivers(entity);
             list.add(form);
         }
+
     	model.addAttribute("list", list);
     	
         return "liver/index";
     }
     
+    /*管理画面での一覧表示*/
     @GetMapping(path="/adminlivers")
-    public String aminindex(Model model) throws IOException {
+    public String adminindex(Model model) throws IOException {
     	Iterable<Livers> livers = repository.findAll();
     	List<LiverForm> list = new ArrayList<>();
     	for (Livers entity : livers) {
             LiverForm form = getLivers(entity);
             list.add(form);
+    		System.out.println("Title: "+form+"\n");
         }
+
     	model.addAttribute("list", list);
     	
         return "admin/liver";
     }
     
+     
     @PostMapping(path = "/edit", params = "edit")
     String edit(@RequestParam long id,Model model) throws IOException {
     	Optional<Livers> liver= repository.findById(id);
@@ -126,7 +130,6 @@ public class LiversController {
     
     public LiverForm getLivers(Livers entity) throws FileNotFoundException, IOException {
         modelMapper.getConfiguration().setAmbiguityIgnored(true);
-        modelMapper.typeMap(Livers.class, LiverForm.class).addMappings(mapper -> mapper.skip(LiverForm::setUser));
 
         boolean isImageLocal = false;
         if (imageLocal != null) {
