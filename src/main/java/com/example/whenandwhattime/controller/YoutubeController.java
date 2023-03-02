@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -16,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
+import com.google.api.services.youtube.model.Video;
 
 import com.example.whenandwhattime.youtube.Search;
 import com.example.whenandwhattime.entity.Livers;
@@ -37,6 +39,7 @@ public class YoutubeController {
 
     @Autowired
     private  LiversRepository liversrepository;
+    public static Iterator<Video> schedule;
     
     
     @Autowired
@@ -47,22 +50,22 @@ public class YoutubeController {
     	Iterable<Livers> livers = liversrepository.findAll();
     	/*youtubeURLの取得リスト*/
     	for(Livers entity : livers) {
-    	   	Youtube list =new Youtube();
     		Rss.parseXML(Rss.path+entity.getYoutube_url());
-    		list.setLivers_id(entity.getId());
-    		list.setSchedule("a");
-    		/*ビデオIDを入れてテーブルを更新*/
+    			/*ビデオIDを入れてテーブルを更新*/
 		    	for(String id : Rss.video_id) {
-		    		list=new Youtube();
+		    		Youtube list=new Youtube();
 		    		list.setVideoid(id);
 		        	list.setLivers_id(entity.getId());
-		        	list.setSchedule("a");
-		            List<Youtube> post = new ArrayList<>();
 		            	if(!yourepository.existsByVideoid(id)) {
-			    		post.add(list);
-			    	   	yourepository.saveAllAndFlush(post);
-			    	   	}	
+				            List<Youtube> post = new ArrayList<>();
+		            		Search.setvideoid(id);
+		            		Search.main(null);
+		            		list.setSchedule(Search.liveschedule);
+				    		post.add(list);
+				    	   	yourepository.saveAllAndFlush(post);
+			    	   	}
 		    		}
+		    
 	   	}
 
 

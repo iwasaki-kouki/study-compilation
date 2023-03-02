@@ -41,8 +41,6 @@ import java.util.Properties;
  * @author Jeremy Walker
  */
 public class Search {
-  /** Global instance properties filename. */
-  private static String PROPERTIES_FILENAME = "youtube.properties";
 
   /** Global instance of the HTTP transport. */
   private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
@@ -54,7 +52,10 @@ public class Search {
   /** Global instance of Youtube object to make all API requests. */
   private static YouTube youtube;
 
-
+  private static String videoid ;
+  
+  public static String liveschedule;
+  
   /**
    * Initializes YouTube object to search for videos on YouTube (Youtube.Search.List). The program
    * then prints the names and thumbnails of each of the videos (only first 50 videos).
@@ -63,7 +64,7 @@ public class Search {
    */
   public static void main(String[] args) {
 
-
+	  
     try {
       /*
        * The YouTube object is used to make all API requests. The last argument is required, but
@@ -74,8 +75,7 @@ public class Search {
         public void initialize(HttpRequest request) throws IOException {}
       }).setApplicationName("youtube-cmdline-search-sample").build();
 
-      // Get query term from user.
-      String queryTerm = getInputQuery();
+
 
       YouTube.Videos.List search = youtube.videos().list("liveStreamingDetails");
       /*
@@ -85,14 +85,16 @@ public class Search {
        */
       String apiKey ="AIzaSyBRbybJiATFTY9Tr5keqeHVtFBJXQ7XNe8";
       search.setKey(apiKey);
-      search.setId(queryTerm);
+      search.setId(videoid);
       search.setFields("items(kind,liveStreamingDetails/scheduledStartTime)");
       
       VideoListResponse searchResponse = search.execute();
       List<Video> searchResultList = searchResponse.getItems();
       
       if (searchResultList != null) {
-          prettyPrint(searchResultList.iterator(), queryTerm);
+          prettyPrint(searchResultList.iterator(), videoid);
+          
+          
         }
       } catch (GoogleJsonResponseException e) {
         System.err.println("There was a service error: " + e.getDetails().getCode() + " : "
@@ -107,19 +109,8 @@ public class Search {
   /*
    * Returns a query term (String) from user via the terminal.
    */
-  private static String getInputQuery() throws IOException {
-
-    String inputQuery = "";
-
-    System.out.print("Please enter a search term: ");
-    BufferedReader bReader = new BufferedReader(new InputStreamReader(System.in));
-    inputQuery = bReader.readLine();
-
-    if (inputQuery.length() < 1) {
-      // If nothing is entered, defaults to "YouTube Developers Live."
-      inputQuery = "YouTube Developers Live";
-    }
-    return inputQuery;
+  public static void setvideoid(String videoid) throws IOException {
+    Search.videoid = videoid;
   }
 
   /*
@@ -131,23 +122,15 @@ public class Search {
    * @param query Search query (String)
    */
   private static void prettyPrint(Iterator<Video> iteratorSearchResults, String query) {
-
-	    System.out.println("\n=============================================================");
-	    System.out.println("=============================================================\n");
-
-	    if (!iteratorSearchResults.hasNext()) {
-	      System.out.println(" There aren't any results for your query.");
-	    }
-
-	    while (iteratorSearchResults.hasNext()) {
-
 	      Video singleVideo = iteratorSearchResults.next();
+	      liveschedule=singleVideo.getLiveStreamingDetails().getScheduledStartTime().toString();
+	      
 
+	      
 	      // Double checks the kind is video.
-	      if (singleVideo.getKind().equals("youtube#video")) {
-	        System.out.println(" scheduledStartTime: " + singleVideo.getLiveStreamingDetails().getScheduledStartTime());
-	        System.out.println("\n-------------------------------------------------------------\n");
-	      }
-	    }
-	  }
+	     
+	      System.out.println(" scheduledStartTime: " + singleVideo.getLiveStreamingDetails().getScheduledStartTime());
+	      System.out.println("\n-------------------------------------------------------------\n");
+  }
+	      	
 }
