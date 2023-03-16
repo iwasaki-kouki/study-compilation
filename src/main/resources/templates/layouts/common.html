@@ -17,19 +17,13 @@
 							<li class="nav-item">
 								<a class="nav-link" th:href="@{/liver/new}">
 									<img th:src="@{/images/icons/bell-slash.svg}"alt="Bootstrap" width="32" height="32">
-									ライバー登録s
+									ライバー登録
 								</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" th:href="@{/adminlivers}">
 									<img th:src="@{/images/icons/bell-slash.svg}"alt="Bootstrap" width="32" height="32">
 									ライバー一覧
-								</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" th:href="@{/test}">
-									<img th:src="@{/images/icons/bell-slash.svg}"alt="Bootstrap" width="32" height="32">
-									情報キャッチ
 								</a>
 							</li>
 
@@ -41,6 +35,7 @@
 							</li>
 						</th:block>
 						
+						<!-- ユーザーログインしたら出てくる物 -->
 						<th:block sec:authorize="hasRole('ROLE_USER')">
 							<li class="nav-item">
 									<img th:src="@{/images/icons/bell.svg}"alt="Bootstrap" width="32" height="32">

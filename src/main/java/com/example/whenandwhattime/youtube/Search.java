@@ -64,7 +64,7 @@ public class Search {
    */
   public static void main(String[] args) {
 
-	  
+
     try {
       /*
        * The YouTube object is used to make all API requests. The last argument is required, but
@@ -74,8 +74,6 @@ public class Search {
       youtube = new YouTube.Builder(HTTP_TRANSPORT, JSON_FACTORY, new HttpRequestInitializer() {
         public void initialize(HttpRequest request) throws IOException {}
       }).setApplicationName("youtube-cmdline-search-sample").build();
-
-
 
       YouTube.Videos.List search = youtube.videos().list("liveStreamingDetails");
       /*
@@ -113,6 +111,7 @@ public class Search {
     Search.videoid = videoid;
   }
 
+  
   /*
    * Prints out all SearchResults in the Iterator. Each printed line includes title, id, and
    * thumbnail.
@@ -123,14 +122,8 @@ public class Search {
    */
   private static void prettyPrint(Iterator<Video> iteratorSearchResults, String query) {
 	      Video singleVideo = iteratorSearchResults.next();
-	      liveschedule=singleVideo.getLiveStreamingDetails().getScheduledStartTime().toString();
-	      
-
-	      
-	      // Double checks the kind is video.
-	     
-	      System.out.println(" scheduledStartTime: " + singleVideo.getLiveStreamingDetails().getScheduledStartTime());
-	      System.out.println("\n-------------------------------------------------------------\n");
+	      liveschedule="null";
+	      liveschedule=singleVideo.getLiveStreamingDetails().getScheduledStartTime().toString();	      
   }
 	      	
 }

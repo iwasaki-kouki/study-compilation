@@ -56,16 +56,9 @@ public class LiversController {
     private String imageLocal;
     
     /*ライバー一覧表示*/
-    @GetMapping(path="/livers")
+    @GetMapping("/livers")
     public String index(Model model) throws IOException {
-    	Iterable<Livers> livers = repository.findAll();
-    	List<LiverForm> list = new ArrayList<>();
-    	for (Livers entity : livers) {
-            LiverForm form = getLivers(entity);
-            list.add(form);
-        }
-
-    	model.addAttribute("list", list);
+    	model.addAttribute("list", list());
     	
         return "liver/index";
     }
@@ -73,17 +66,20 @@ public class LiversController {
     /*管理画面での一覧表示*/
     @GetMapping(path="/adminlivers")
     public String adminindex(Model model) throws IOException {
+    	model.addAttribute("list", list());
+    	
+        return "admin/liver";
+    }
+    
+    /*まとめる部分*/
+    private List<LiverForm> list() throws IOException{
     	Iterable<Livers> livers = repository.findAll();
     	List<LiverForm> list = new ArrayList<>();
     	for (Livers entity : livers) {
             LiverForm form = getLivers(entity);
             list.add(form);
-    		System.out.println("Title: "+form+"\n");
-        }
-
-    	model.addAttribute("list", list);
-    	
-        return "admin/liver";
+        };
+		return list;
     }
     
      

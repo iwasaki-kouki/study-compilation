@@ -28,7 +28,7 @@ nav.navbar {
   margin-bottom: 20px;
   padding: 0; }
   nav.navbar a {
-    color: #fff; }
+    color: black; }
   nav.navbar img {
     height: 40px; }
 
@@ -41,5 +41,8 @@ nav.navbar {
     justify-content: center; }
   .pages-home-wrapper .pagination {
     margin-bottom: 0px; }
+
+p.time {
+  text-align: left; }
 
 /*# sourceMappingURL=style.css.map */

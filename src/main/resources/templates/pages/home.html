@@ -15,6 +15,7 @@
 		<div class="container">
 			<div class=row>
 				<!-- 時間切り替え -->
+				<!-- スケジュールライン -->
 				<div class="col-7 col-lg-7">
 					<div class="container row">
 						<nav aria-label="AM-PM">
@@ -24,9 +25,18 @@
 						  	</ul>
 				  		</nav>
 				  	</div>
-				<!-- スケジュールライン -->
-					<th:block th:each="i : ${#numbers.sequence(0,12)}">
-						<p th:text="${i}"></p><!-- 0 1 2 3が出力される -->
+					<th:block th:each="time : ${#numbers.sequence(0,12)}">
+						<div class="container row">
+							<p class="time col-1 " th:text="${time}"></p><!-- 0 1 2 3が出力される -->
+							<div class="card__textbox col-11">
+								<div class="card__titletext">
+									a
+								</div>
+								<div class="card__overviewtext">
+									i
+								</div>
+							 </div>
+						</div>
 					</th:block>
 				</div>
 			
@@ -34,7 +44,23 @@
 				<div class="col-3 col-lg-3 offset-1">
 				<div class="container">
 					<div class="row">
-					<a>NEWS</a>
+					      <p id="myid"></p>
+    <script>
+        t = 0;
+        var elem = document.getElementById("myid");
+ 
+        function myfunc(){
+            var date = new Date();
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var seconds = date.getSeconds();
+            elem.innerHTML = hours+"時"+minutes+"分"+seconds+"秒" ;
+        }
+ 
+        t = setInterval("myfunc()", 500);
+ 
+    </script>
+					<a>NEWS </a>
 					</div>
 				</div>
 				</div>

@@ -45,8 +45,8 @@ public class YoutubeController {
     @Autowired
     private YoutubeRepository yourepository;
     
-    @GetMapping(path="/test")
-    public String main(Model model) throws IOException {
+    @Scheduled(cron = "0 0 * * * *", zone = "Asia/Tokyo")
+    public void main() throws IOException {
     	Iterable<Livers> livers = liversrepository.findAll();
     	/*youtubeURLの取得リスト*/
     	for(Livers entity : livers) {
@@ -58,18 +58,19 @@ public class YoutubeController {
 		        	list.setLivers_id(entity.getId());
 		            	if(!yourepository.existsByVideoid(id)) {
 				            List<Youtube> post = new ArrayList<>();
+				            post.clear();
+				            list.setSchedule(null);
 		            		Search.setvideoid(id);
 		            		Search.main(null);
 		            		list.setSchedule(Search.liveschedule);
 				    		post.add(list);
 				    	   	yourepository.saveAllAndFlush(post);
+		            		
 			    	   	}
-		    		}
-		    
+		    		}   
 	   	}
-
-
-    	return "liver/index";
     }
+    
+    
     
 }
