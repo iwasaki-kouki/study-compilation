@@ -17,7 +17,8 @@
 				<!-- 時間切り替え -->
 				<!-- スケジュールライン -->
 				<div class="top col-7 col-lg-7">
-				  	<div class="timeline"><!-- 時間だけ-->
+				  	<div class="timeline" id="timeline">
+				  	<!-- 時間だけ-->
 						<th:block th:each="time : ${#numbers.sequence(0,23)}">
 							<div class="container row">
 								<p class="time col-1 " th:text="${time}"></p><!-- 0 1 2 3が出力される -->

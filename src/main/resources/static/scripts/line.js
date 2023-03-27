@@ -1,20 +1,21 @@
 const elem =document.querySelector("#a");
 elem.innerText='java';
+let date = new Date();
 
-
-
-
+// スクロールさせる        
+timeline.scrollTop = 0;
+timeline.scrollTop = date.getHours()*360;
+console.log(timeline.scrollTop);
 // 時計
         let myfunc=()=>{
-            var date = new Date();
-            var hours = date.getHours();
-            var minutes = date.getMinutes();
-            var seconds = date.getSeconds();
+
+            let hours = date.getHours();
+            let minutes = date.getMinutes();
+            let seconds = date.getSeconds();
             myid.innerHTML = hours+"時"+minutes+"分"+seconds+"秒" ;
         }
  
         setInterval("myfunc()", 500);
-
         
 // 線の描写
 let line = (fig,x1,y1,x2,y2,thick,color) => {
