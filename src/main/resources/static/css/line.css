@@ -45,18 +45,4 @@ nav.navbar {
 p.time {
   text-align: left; }
 
-.top {
-  height: 40px; }
-
-.timeline {
-  overflow-y: scroll;
-  height: 80vh; }
-
-.card__textbox {
-  height: 360px; }
-  .card__textbox .card__titletext {
-    height: 45px; }
-  .card__textbox .card__overviewtext {
-    height: 45px; }
-
-/*# sourceMappingURL=style.css.map */
+/*# sourceMappingURL=line.css.map */

@@ -1,4 +1,4 @@
-function convertMethod(selector) {
+let convertMethod = (selector)=> {
     $(selector).click(function () {
         var action = $(this).attr('href');
         var params = $(this).data();
