@@ -31,6 +31,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
@@ -122,8 +124,11 @@ public class Search {
    */
   private static void prettyPrint(Iterator<Video> iteratorSearchResults, String query) {
 	      Video singleVideo = iteratorSearchResults.next();
+	      ZonedDateTime utc = ZonedDateTime.parse(singleVideo.getLiveStreamingDetails().getScheduledStartTime().toString());
+	      ZonedDateTime jst = utc.withZoneSameInstant(ZoneId.of("Asia/Tokyo"));
 	      liveschedule="null";
-	      liveschedule=singleVideo.getLiveStreamingDetails().getScheduledStartTime().toString();	      
+	      liveschedule=jst.toString();	      
+	      
   }
 	      	
 }
