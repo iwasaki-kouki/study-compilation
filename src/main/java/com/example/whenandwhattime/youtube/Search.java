@@ -64,7 +64,7 @@ public class Search {
    *
    * @param args command line args.
    */
-  public static void main(String[] args) {
+  public static void Searching(String[] args) {
 
 
     try {
@@ -126,7 +126,7 @@ public class Search {
 	      Video singleVideo = iteratorSearchResults.next();
 	      ZonedDateTime utc = ZonedDateTime.parse(singleVideo.getLiveStreamingDetails().getScheduledStartTime().toString());
 	      ZonedDateTime jst = utc.withZoneSameInstant(ZoneId.of("Asia/Tokyo"));
-	      liveschedule="null";
+	      liveschedule=null;
 	      liveschedule=jst.toString();	      
 	      
   }

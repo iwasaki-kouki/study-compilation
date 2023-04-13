@@ -20,35 +20,51 @@
 				  	<div class="timeline" id="timeline">
 				  	<!-- 時間だけ-->
 						<th:block th:each="time : ${#numbers.sequence(0,23)}">
-							<div class="container row">
-								<p class="time col-1 " th:text="${time}"></p><!-- 0 1 2 3が出力される -->
-								<div class="card__textbox col-11">
-									<div class="card__titletext" id="a">
-										a
-									</div>
-									<div class="card__overviewtext">
-										i
-									</div>
-									<div class="card__titletext" id="a">
-										a
-									</div>
-									<div class="card__overviewtext">
-										i
-									</div>
-									<div class="card__titletext" id="a">
-										a
-									</div>
-									<div class="card__overviewtext">
-										i
-									</div>
-									<div class="card__titletext" id="a">
-										a
-									</div>
-									<div class="card__overviewtext">
-										i
-									</div>
-								 </div>
+							<div class="container row" >
+								<!-- 0 1 2 3が出力される -->
+								<p class="time col-1 " th:text="${time}" ></p>
+										<div class="card__textbox col-11">
+											<th:block th:each="livers : ${list}">
+											<!-- 0分 -->
+											<div class="container row" >
+											<th:block th:each="min : ${#numbers.sequence(0,14)}">
+											<div class="card__titletext" th:text="${livers.id}" th:if="${livers.schedule ==time+':0'+min||livers.schedule =='0'+time+':0'+min||livers.schedule ==time+':'+min||livers.schedule =='0'+time+':'+min}">
+											</div>
+											<div class="card__overviewtext" th:text="${livers.id}" th:if="${livers.schedule ==time+':0'+min||livers.schedule =='0'+time+':0'+min||livers.schedule ==time+':'+min||livers.schedule =='0'+time+':'+min}">
+											</div>
+											</th:block>
+											</div>
+											<!-- 15分 -->
+											<div class="container row" >
+											<th:block th:each="min2 : ${#numbers.sequence(15,29)}">
+											<div class="card__titletext" th:text="a" th:if="${livers.schedule ==time+':'+min2||livers.schedule =='0'+time+':'+min2}">
+											</div>
+											<div class="card__overviewtext" th:text="a" th:if="${livers.schedule ==time+':'+min2||livers.schedule =='0'+time+':'+min2}">
+											</div>
+											</th:block>
+											</div>
+											<!-- 30分 -->
+											<div class="container row" >
+											<th:block th:each="min3 : ${#numbers.sequence(30,44)}">
+											<div class="card__titletext" th:text="a" th:if="${livers.schedule ==time+':'+min3||livers.schedule =='0'+time+':'+min3}">
+											</div>
+											<div class="card__overviewtext" th:text="a" th:if="${livers.schedule ==time+':'+min3||livers.schedule =='0'+time+':'+min3}">
+											</div>
+											</th:block>
+											</div>
+											<!-- 45 -->
+											<div class="container row" >
+											<th:block th:each="min4 : ${#numbers.sequence(45,59)}">
+											<div class="card__titletext" th:text="a" th:if="${livers.schedule ==time+':'+min4||livers.schedule =='0'+time+':'+min4}">
+											</div>
+											<div class="card__overviewtext" th:text="a" th:if="${livers.schedule ==time+':'+min4||livers.schedule =='0'+time+':'+min4}">
+											</div>
+											</th:block>
+											</div>
+											</th:block>
+										</div>
 							</div>
+
 						</th:block>
 					</div>
 				</div>

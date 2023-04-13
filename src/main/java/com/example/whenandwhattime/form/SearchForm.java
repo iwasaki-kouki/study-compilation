@@ -10,7 +10,7 @@ public class SearchForm {
     @NotEmpty
     private String id;
 
-    private String vedioid;
+    private String videoid;
     
     private String schedule;
     

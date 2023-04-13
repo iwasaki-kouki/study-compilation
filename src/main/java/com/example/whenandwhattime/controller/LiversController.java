@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.util.Base64Utils;
 import org.springframework.validation.BindingResult;
@@ -37,6 +38,7 @@ import com.example.whenandwhattime.entity.Livers;
 import com.example.whenandwhattime.form.LiverForm;
 import com.example.whenandwhattime.form.EditForm;
 import com.example.whenandwhattime.repository.LiversRepository;
+import com.example.whenandwhattime.repository.YoutubeRepository;
 
 
 @Controller
@@ -48,6 +50,9 @@ public class LiversController {
 
     @Autowired
     private LiversRepository repository;
+    
+    @Autowired
+    private YoutubeRepository yourepository;
 
     @Autowired
     private HttpServletRequest request;
@@ -58,7 +63,14 @@ public class LiversController {
     /*ライバー一覧表示*/
     @GetMapping("/livers")
     public String index(Model model) throws IOException {
-    	model.addAttribute("list", list());
+    	Iterable<Livers> livers = repository.findAll();
+    	List<LiverForm> list = new ArrayList<>();
+    	for (Livers entity : livers) {
+    		LiverForm form = getLivers(entity);
+            list.add(form);
+    		
+    	};
+    	model.addAttribute("list", list);
     	
         return "liver/index";
     }
@@ -66,6 +78,7 @@ public class LiversController {
     /*管理画面での一覧表示*/
     @GetMapping(path="/adminlivers")
     public String adminindex(Model model) throws IOException {
+    	
     	model.addAttribute("list", list());
     	
         return "admin/liver";
@@ -78,7 +91,7 @@ public class LiversController {
     	for (Livers entity : livers) {
             LiverForm form = getLivers(entity);
             list.add(form);
-        };
+    	};
 		return list;
     }
     
@@ -118,8 +131,11 @@ public class LiversController {
         return "redirect:/adminlivers";
     }
     
+    @Transactional
     @PostMapping(path = "/edit", params = "delete")
     public String delete(@RequestParam long id) {
+    	yourepository.deleteALLByLivers_id(id);
+    	System.out.println(id);
     	repository.deleteById(id);
         return "redirect:/adminlivers";
     }

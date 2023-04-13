@@ -22,8 +22,6 @@ import com.google.api.services.youtube.model.Video;
 import com.example.whenandwhattime.youtube.Search;
 import com.example.whenandwhattime.entity.Livers;
 import com.example.whenandwhattime.entity.Youtube;
-import com.example.whenandwhattime.form.LiverForm;
-import com.example.whenandwhattime.form.SearchForm;
 import com.example.whenandwhattime.repository.LiversRepository;
 import com.example.whenandwhattime.repository.YoutubeRepository;
 import com.example.whenandwhattime.rss.Rss;
@@ -40,7 +38,7 @@ public class YoutubeController {
     @Autowired
     private  LiversRepository liversrepository;
     public static Iterator<Video> schedule;
-    
+
     
     @Autowired
     private YoutubeRepository yourepository;
@@ -61,10 +59,11 @@ public class YoutubeController {
 				            post.clear();
 				            list.setSchedule(null);
 		            		Search.setvideoid(id);
-		            		Search.main(null);
+		            		Search.Searching(null);
 		            		list.setSchedule(Search.liveschedule);
 				    		post.add(list);
 				    	   	yourepository.saveAllAndFlush(post);
+				    		
 		            		
 			    	   	}
 		    		}   
