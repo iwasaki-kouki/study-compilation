@@ -4,12 +4,15 @@
 		<nav class="navbar navbar-expand-lg fixed-top navbar-dark" layout:fragment="nav">
 		
 			<div class="container">
-				<a class="naber-brand" th:href="@{/}">
+				<a class="navber-brand" th:href="@{/}">
 					<img th:src="@{/images/icons/logo.png}" class="brand">
 				</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
+				<div >
+				<p id="nowtime"></p>
+				</div>
 				<div class="collapse navbar-collapse" id="navbarNav">
 					<ul class="navbar-nav ms-auto">
 						<!-- ログインしたら出てくる物 -->

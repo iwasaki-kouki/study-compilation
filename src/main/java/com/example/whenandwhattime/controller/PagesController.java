@@ -29,11 +29,13 @@ public class PagesController {
     @GetMapping("/")
     public String index(Model model) throws IOException {
     	model.addAttribute("list", list());
-    	System.out.println(list());
-        return "pages/home";
+    	model.addAttribute("img", img());
+    	return "pages/home";
     }
     
-    /*今日のスケジュールをHTMLに送るためにまとめる*/
+
+
+	/*今日のスケジュールをHTMLに送るためにまとめる*/
     private List<SearchForm> list() throws IOException{
     	Iterable<Youtube> schedule = repository.findAll();
     	List<SearchForm> list = new ArrayList<>();
@@ -46,19 +48,34 @@ public class PagesController {
     				SearchForm form = getYoutube(entity);
     	        	form.setSchedule(entity.getSchedule().substring(11, 16));
     				list.add(form);
+
     			}
             }
         }
 		return list;
     }
 
+    
 	private SearchForm getYoutube(Youtube entity) {
         modelMapper.getConfiguration().setAmbiguityIgnored(true);
         SearchForm form = modelMapper.map(entity, SearchForm.class);
         return form;
 	}
 
+	   private List<String> img() throws IOException{
+	    	Iterable<Youtube> schedule = repository.findAll();
+	    	List<String>img=new ArrayList<>();
+	    	ZonedDateTime nowday = ZonedDateTime.now();
+	    	for (Youtube entity : schedule) {
 
-
+	    		if(entity.getSchedule()!=null) {
+	        	String substr = entity.getSchedule().substring(0, 10);
+	    			if(nowday.toLocalDate().toString().equals(substr)) {
+	    				img.add("https://img.youtube.com/vi/"+entity.getVideoid()+"/default.jpg");
+	    			}
+	            }
+	        }
+			return img;
+	    }
 
 }
