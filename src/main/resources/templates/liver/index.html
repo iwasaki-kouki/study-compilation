@@ -18,15 +18,15 @@
 							<div class="row row-cols-2">
 								<!--画像-->
 								<div class="col-12">
-									<img src="" th:if="${@environment.getProperty('image.local')}" th:src="${livers.imageData}" class="image" width="295"  height="295"/>
-									<img src="" th:unless="${@environment.getProperty('image.local')}" th:src="${livers.path}" class="image" width="295"  height="295"/>
+									<img src="" th:if="${@environment.getProperty('image.local')}" th:src="${livers.imageData}" class="image" width="100%"  height="100%"/>
+									<img src="" th:unless="${@environment.getProperty('image.local')}" th:src="${livers.path}" class="image" width="100%"  height="100%"/>
 								</div>
 								<!--リンク-->
 								<a th:href="@{'https://www.youtube.com/channel/'+${livers.youtube_URL}+'/'}">
-									<img th:src="@{/images/icons/youtube.png}" width="147.5" height="97.5">
+									<img th:src="@{/images/icons/youtube.png}" width="100%" height="100%">
 								</a>
 								<a th:href="${livers.twitter_URL}">
-									<img th:src="@{/images/icons/twitter.png}" width="147.5" height="97.5">
+									<img th:src="@{/images/icons/twitter.png}" width="100%" height="100%">
 								</a>
 							</div>
 						</div>

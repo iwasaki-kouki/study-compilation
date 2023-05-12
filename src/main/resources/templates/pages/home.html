@@ -26,43 +26,47 @@
 										<div class="card__textbox col-11">
 										<div class="container row" id="thumb">
 											<th:block th:each="livers : ${list}">
-											<!-- 0分 -->
 												<th:block th:each="min : ${#numbers.sequence(0,14)}">
-												<div class="modal-open" th:if="${livers.schedule ==time+':0'+min||livers.schedule =='0'+time+':0'+min||livers.schedule ==time+':'+min||livers.schedule =='0'+time+':'+min}">
+
+												<div th:data-target="${livers.videoid}" class="modal-open" th:if="${livers.schedule ==time+':0'+min||livers.schedule =='0'+time+':0'+min||livers.schedule ==time+':'+min||livers.schedule =='0'+time+':'+min}">
 														<th:block th:each="imge : ${img}" >
-															<img th:src="${imge}" th:if="${'https://img.youtube.com/vi/'+livers.videoid+'/default.jpg'==imge}">
+															<img class="imge" th:src="${imge}" th:if="${'https://img.youtube.com/vi/'+livers.videoid+'/default.jpg'==imge}">
 														</th:block>
 												</div>
+												<div th:id="${livers.videoid}" class="modal-container" th:if="${livers.schedule ==time+':0'+min||livers.schedule =='0'+time+':0'+min||livers.schedule ==time+':'+min||livers.schedule =='0'+time+':'+min}">
 												<!-- モーダル本体 -->
-												<div class="modal-container" th:if="${livers.schedule ==time+':0'+min||livers.schedule =='0'+time+':0'+min||livers.schedule ==time+':'+min||livers.schedule =='0'+time+':'+min}">
 													<div class="modal-body">
 														<!-- 閉じるボタン -->
 														<div class="modal-close">×</div>
 														<!-- モーダル内のコンテンツ -->
 														<div class="modal-content">
+															<!--画像　リンク　配信タイトル-->
+															<th:block th:each="imge : ${hiimg}" >
+															<img class="imge" th:src="${imge}" th:if="${'https://img.youtube.com/vi/'+livers.videoid+'/hqdefault.jpg'==imge}">
+															</th:block>
 															<p>文章が入ります。</p>
 														</div>
 													</div>
 												</div>
 												</th:block>
-											<!-- 15分 -->
 												<th:block th:each="min2 : ${#numbers.sequence(15,29)}">
+
 												<div class="card__titletext" th:if="${livers.schedule ==time+':'+min2||livers.schedule =='0'+time+':'+min2}">
 														<th:block th:each="imge : ${img}" >
 															<img th:src="${imge}" th:if="${'https://img.youtube.com/vi/'+livers.videoid+'/default.jpg'==imge}">
 														</th:block>
 												</div>
 												</th:block>
-											<!-- 30分 -->
 												<th:block th:each="min3 : ${#numbers.sequence(30,44)}">
+
 												<div class="card__titletext"  th:if="${livers.schedule ==time+':'+min3||livers.schedule =='0'+time+':'+min3}">
 														<th:block th:each="imge : ${img}" >
 															<img th:src="${imge}" th:if="${'https://img.youtube.com/vi/'+livers.videoid+'/default.jpg'==imge}">
 														</th:block>
 												</div>
 												</th:block>
-											<!-- 45 -->
 												<th:block th:each="min4 : ${#numbers.sequence(45,59)}">
+
 												<div class="card__titletext" th:if="${livers.schedule ==time+':'+min4||livers.schedule =='0'+time+':'+min4}">
 														<th:block th:each="imge : ${img}" >
 															<img th:src="${imge}" th:if="${'https://img.youtube.com/vi/'+livers.videoid+'/default.jpg'==imge}">

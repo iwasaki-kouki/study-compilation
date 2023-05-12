@@ -29,7 +29,8 @@ public class PagesController {
     @GetMapping("/")
     public String index(Model model) throws IOException {
     	model.addAttribute("list", list());
-    	model.addAttribute("img", img());
+    	model.addAttribute("img", img("img"));
+    	model.addAttribute("hiimg", img("hiimg"));
     	return "pages/home";
     }
     
@@ -62,7 +63,7 @@ public class PagesController {
         return form;
 	}
 
-	   private List<String> img() throws IOException{
+	   private List<String> img(String quality) throws IOException{
 	    	Iterable<Youtube> schedule = repository.findAll();
 	    	List<String>img=new ArrayList<>();
 	    	ZonedDateTime nowday = ZonedDateTime.now();
@@ -71,7 +72,11 @@ public class PagesController {
 	    		if(entity.getSchedule()!=null) {
 	        	String substr = entity.getSchedule().substring(0, 10);
 	    			if(nowday.toLocalDate().toString().equals(substr)) {
+	    				if(quality=="img"){
 	    				img.add("https://img.youtube.com/vi/"+entity.getVideoid()+"/default.jpg");
+	    				}else {
+	    				img.add("https://img.youtube.com/vi/"+entity.getVideoid()+"/hqdefault.jpg");
+	    				}
 	    			}
 	            }
 	        }

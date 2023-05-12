@@ -1,6 +1,6 @@
 let date = new Date();
 // 時計
-        let myfunc=()=>{
+        let time=()=>{
 			let date = new Date();
             let hours = date.getHours();
             let minutes = date.getMinutes();
@@ -8,11 +8,12 @@ let date = new Date();
             nowtime.innerHTML = hours+"時"+minutes+"分"+seconds+"秒" ;
         }
  
-        setInterval("myfunc()", 500);
+        setInterval("time()", 500);
 
 // スクロールさせる        
 timeline.scrollTop = 0;
 timeline.scrollTop = date.getHours()*360;
+
 
 
 // モーダルウィンドウを作る
@@ -22,11 +23,12 @@ window.onload = function(){
 		close = $('.modal-close'),
 		container = $('.modal-container');
 
+
 	//開くボタンをクリックしたらモーダルを表示する
-	open.on('click',function(){	
-		container.addClass('active');
-		return false;
-	});
+        open.on('click',function(){
+			$('#'+$(this).data('target')).addClass('active');
+			return false;
+		});
 
 	//閉じるボタンをクリックしたらモーダルを閉じる
 	close.on('click',function(){	
