@@ -20,6 +20,8 @@ public class Rss {
 	
 
     public static List<String> video_id = new ArrayList<>();
+    public static List<String> title = new ArrayList<>();
+    
     
     public static void parseXML(String path) {
     	
@@ -34,11 +36,15 @@ public class Rss {
             /* Get Node list of RSS items */
             NodeList                item_list = root.getElementsByTagName("entry");
 			video_id.clear();
+			title.clear();
             for (int i = 0; i <5; i++) {
 
                 Element  element = (Element)item_list.item(i);
-                NodeList item_title = element.getElementsByTagName("yt:videoId");
-                video_id.add(item_title.item(0).getFirstChild().getNodeValue());
+                NodeList item_id = element.getElementsByTagName("yt:videoId");
+                video_id.add(item_id.item(0).getFirstChild().getNodeValue());
+                NodeList item_title = element.getElementsByTagName("media:title");
+                title.add(item_title.item(0).getFirstChild().getNodeValue());
+                
             }
         } catch (IOException e) {
             System.out.println("IO Exception");

@@ -1,23 +1,25 @@
-let date = new Date();
+
 // 時計
-        let time=()=>{
+ let time=()=>{
 			let date = new Date();
-            let hours = date.getHours();
-            let minutes = date.getMinutes();
-            let seconds = date.getSeconds();
-            nowtime.innerHTML = hours+"時"+minutes+"分"+seconds+"秒" ;
+			timeline.scrollTop = 0;
+			timeline.scrollTop = date.getHours()*360;
+
         }
  
         setInterval("time()", 500);
 
 // スクロールさせる        
-timeline.scrollTop = 0;
-timeline.scrollTop = date.getHours()*360;
+
 
 
 
 // モーダルウィンドウを作る
 window.onload = function(){
+	let date = new Date();
+	timeline.scrollTop = 0;
+	timeline.scrollTop = date.getHours()*360;
+	
 	// 変数に要素を入れる
 	var open = $('.modal-open'),
 		close = $('.modal-close'),

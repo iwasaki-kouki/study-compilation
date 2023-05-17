@@ -15,5 +15,8 @@ public class SearchForm {
     private String schedule;
     
     private Long livers_id;
+    
+    private String title;
+    
 
 }

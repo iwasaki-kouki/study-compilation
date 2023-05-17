@@ -13,9 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import com.example.whenandwhattime.entity.Livers;
 import com.example.whenandwhattime.entity.Youtube;
 import com.example.whenandwhattime.form.SearchForm;
+import com.example.whenandwhattime.repository.LiversRepository;
 import com.example.whenandwhattime.repository.YoutubeRepository;
+import com.example.whenandwhattime.rss.Rss;
+import com.example.whenandwhattime.youtube.Search;
 
 @Controller
 public class PagesController {
@@ -24,6 +29,8 @@ public class PagesController {
     
 	@Autowired
     private YoutubeRepository repository;
+	
+
 	
 	/*ホームに行くとhtmlに今日のスケジュールを送る*/
     @GetMapping("/")
@@ -48,6 +55,7 @@ public class PagesController {
     			if(nowday.toLocalDate().toString().equals(substr)) {
     				SearchForm form = getYoutube(entity);
     	        	form.setSchedule(entity.getSchedule().substring(11, 16));
+    	        	
     				list.add(form);
 
     			}
@@ -77,10 +85,14 @@ public class PagesController {
 	    				}else {
 	    				img.add("https://img.youtube.com/vi/"+entity.getVideoid()+"/hqdefault.jpg");
 	    				}
+	    				
+	    				
 	    			}
 	            }
 	        }
 			return img;
 	    }
+	   
 
+	   
 }

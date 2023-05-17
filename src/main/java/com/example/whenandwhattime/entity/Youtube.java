@@ -36,7 +36,9 @@ public class Youtube implements Serializable{
     @Column(nullable = false)
     private Long Livers_id;
     
-
+    @Column(nullable = false)
+    private String title;
+    
     
     
     @ManyToOne

@@ -53,6 +53,7 @@ public class YoutubeController {
 		    	for(String id : Rss.video_id) {
 		    		Youtube list=new Youtube();
 		    		list.setVideoid(id);
+		    		list.setTitle(Rss.title.get(Rss.video_id.indexOf(id)));
 		        	list.setLivers_id(entity.getId());
 		            	if(!yourepository.existsByVideoid(id)) {
 				            List<Youtube> post = new ArrayList<>();
