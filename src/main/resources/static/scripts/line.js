@@ -1,14 +1,3 @@
-
-// 時計
- let time=()=>{
-			let date = new Date();
-			timeline.scrollTop = 0;
-			timeline.scrollTop = date.getHours()*360;
-
-        }
- 
-        setInterval("time()", 500);
-
 // スクロールさせる        
 
 

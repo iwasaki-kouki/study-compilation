@@ -8,5 +8,5 @@ import com.example.whenandwhattime.entity.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, String> {
 
-    User findByUsername(String username);
+	User findByUsername(String username);
 }

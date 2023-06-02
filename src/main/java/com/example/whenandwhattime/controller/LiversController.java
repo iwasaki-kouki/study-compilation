@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -35,11 +36,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.whenandwhattime.entity.Livers;
+import com.example.whenandwhattime.entity.UserInf;
 import com.example.whenandwhattime.form.LiverForm;
 import com.example.whenandwhattime.form.EditForm;
 import com.example.whenandwhattime.repository.LiversRepository;
 import com.example.whenandwhattime.repository.YoutubeRepository;
-
+import com.example.whenandwhattime.entity.Favorites;
+import com.example.whenandwhattime.form.FavoriteForm;
 
 @Controller
 public class LiversController {
@@ -62,15 +65,15 @@ public class LiversController {
     
     /*ライバー一覧表示*/
     @GetMapping("/livers")
-    public String index(Model model) throws IOException {
-    	Iterable<Livers> livers = repository.findAll();
-    	List<LiverForm> list = new ArrayList<>();
-    	for (Livers entity : livers) {
-    		LiverForm form = getLivers(entity);
-            list.add(form);
-    		
-    	};
-    	model.addAttribute("list", list);
+    public String index(Principal principal,Model model) throws IOException {
+    	Authentication authentication =(Authentication) principal;
+    	UserInf user = null;
+    	if(authentication!=null) {
+    	user =(UserInf) authentication.getPrincipal();
+    	}
+    	model.addAttribute("list", list(user));
+    	model.addAttribute("user", user);
+    	
     	
         return "liver/index";
     }
@@ -78,18 +81,18 @@ public class LiversController {
     /*管理画面での一覧表示*/
     @GetMapping(path="/adminlivers")
     public String adminindex(Model model) throws IOException {
-    	
-    	model.addAttribute("list", list());
+
+    	model.addAttribute("list", list(null));
     	
         return "admin/liver";
     }
     
     /*まとめる部分*/
-    private List<LiverForm> list() throws IOException{
+    private List<LiverForm> list(UserInf user) throws IOException{
     	Iterable<Livers> livers = repository.findAll();
     	List<LiverForm> list = new ArrayList<>();
     	for (Livers entity : livers) {
-            LiverForm form = getLivers(entity);
+            LiverForm form = getLivers(user,entity);
             list.add(form);
     	};
 		return list;
@@ -140,9 +143,11 @@ public class LiversController {
         return "redirect:/adminlivers";
     }
     
-    public LiverForm getLivers(Livers entity) throws FileNotFoundException, IOException {
+    public LiverForm getLivers(UserInf user,Livers entity) throws FileNotFoundException, IOException {
         modelMapper.getConfiguration().setAmbiguityIgnored(true);
-
+        modelMapper.typeMap(Livers.class, LiverForm.class).addMappings(mapper -> mapper.skip(LiverForm::setFavorites));
+        modelMapper.typeMap(Favorites.class, FavoriteForm.class).addMappings(mapper -> mapper.skip(FavoriteForm::setLiver));
+        
         boolean isImageLocal = false;
         if (imageLocal != null) {
             isImageLocal = new Boolean(imageLocal);
@@ -166,7 +171,27 @@ public class LiversController {
                 form.setImageData(data.toString());
             }
         }
-        return form;
+        if(user!=null) {
+	        List<FavoriteForm> favorites = new ArrayList<FavoriteForm>();
+	        for (Favorites favoriteEntity : entity.getFavorites()) {
+	        	           FavoriteForm favorite = modelMapper.map(favoriteEntity, FavoriteForm.class);
+	        	           favorites.add(favorite);
+	        	           if (user.getUserId().equals(favoriteEntity.getUserId())) {
+	        	        	                 form.setFavorite(favorite);
+	        	              }
+	        	           
+	        }
+	        form.setFavorites(favorites);
+        }
+        
+        
+        
+
+
+
+
+
+       return form;
     }
     
 	private String getMimeType(String path) {

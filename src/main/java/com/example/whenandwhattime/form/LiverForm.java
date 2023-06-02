@@ -1,5 +1,6 @@
 package com.example.whenandwhattime.form;
 
+import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,6 +30,10 @@ public class LiverForm {
     private String youtube_URL;
     
     private String language;    
+    
+    private List<FavoriteForm> favorites;
+    
+    private FavoriteForm favorite;
 
 
 

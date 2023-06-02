@@ -15,40 +15,31 @@ import javax.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = "schedule")
+@Table(name = "favorites")
 @Data
+public class Favorites implements Serializable{
+    private static final long serialVersionUID = 1L;
 
-public class Youtube implements Serializable{
-	
-	private static final long serialVersionUID = 1L;
-	
     @Id
-    @SequenceGenerator(name = "Livers_id_seq")
+    @SequenceGenerator(name = "favorite_id_seq")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @Column(nullable = false)
-    private String videoid;
-    
+    private Long userId;
+
     @Column(nullable = false)
-    private String schedule;
-    
-    @Column(nullable = false)
-    private Long livers_id;
-    
-    @Column(nullable = false)
-    private String title;
-    
-    
+    private Long liversId;
     
     @ManyToOne
-    @JoinColumn(name = "livers_id", insertable = false, updatable = false)
-    private Livers livers;
-
-
-
-
+    @JoinColumn(name = "userId", insertable = false, updatable = false)
+    private User user;
     
+
+    @ManyToOne
+    @JoinColumn(name = "liversId",insertable = false, updatable = false)
+    private Livers liver;
     
-    
+
+
 }
