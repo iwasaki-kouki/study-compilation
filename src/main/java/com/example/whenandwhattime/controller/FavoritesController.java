@@ -50,6 +50,7 @@ public class FavoritesController {
             LiverForm form =LiversController.getLivers(user,liver);
             list.add(form);
         }
+        
         model.addAttribute("list", list);
 
         return "liver/index";

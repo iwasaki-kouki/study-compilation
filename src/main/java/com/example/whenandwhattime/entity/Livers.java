@@ -46,7 +46,7 @@ public class Livers implements Serializable{
     private String language;
     
     @OneToMany
-    @JoinColumn(name = "liversId", insertable = false, updatable = false)
+    @JoinColumn(name = "livers_id", insertable = false, updatable = false)
     private List<Favorites> favorites;
     
 }

@@ -13,11 +13,14 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.ToString;
 
 @Entity
 @Table(name = "favorites")
 @Data
 public class Favorites implements Serializable{
+
+	
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -25,19 +28,20 @@ public class Favorites implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name="user_id",nullable = false)
     private Long userId;
-
-    @Column(nullable = false)
+    
+    @Column(name="livers_id",nullable = false)
     private Long liversId;
     
+    @ToString.Exclude
     @ManyToOne
-    @JoinColumn(name = "userId", insertable = false, updatable = false)
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user;
     
-
+    @ToString.Exclude
     @ManyToOne
-    @JoinColumn(name = "liversId",insertable = false, updatable = false)
+    @JoinColumn(name = "livers_id",insertable = false, updatable = false)
     private Livers liver;
     
 

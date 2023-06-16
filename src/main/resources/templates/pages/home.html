@@ -56,11 +56,32 @@
 												</th:block>
 												<th:block th:each="min2 : ${#numbers.sequence(15,29)}">
 
-												<div class="card__titletext" th:if="${livers.schedule ==time+':'+min2||livers.schedule =='0'+time+':'+min2}">
-														<th:block th:each="imge : ${img}" >
-															<img th:src="${imge}" th:if="${'https://img.youtube.com/vi/'+livers.videoid+'/default.jpg'==imge}">
-														</th:block>
-												</div>
+													<div th:data-target="${livers.videoid}" class="modal-open" th:if="${livers.schedule ==time+':'+min2||livers.schedule =='0'+time+':'+min2}">
+															<th:block th:each="imge : ${img}" >
+																<img class="imge" th:src="${imge}" th:if="${'https://img.youtube.com/vi/'+livers.videoid+'/default.jpg'==imge}">
+															</th:block>
+													</div>
+													
+													<div th:id="${livers.videoid}" class="modal-container" th:if="${livers.schedule ==time+':'+min2||livers.schedule =='0'+time+':'+min2}">
+													<!-- モーダル本体 -->
+														<div class="modal-body">
+															<!-- 閉じるボタン -->
+															<div class="modal-close">×</div>
+															<!-- モーダル内のコンテンツ -->
+															<div class="modal-content">
+																<!--画像　リンク　配信タイトル-->
+																<a th:href="'https://www.youtube.com/watch?v='+${livers.videoid}+'/'">
+																	<th:block th:each="imge : ${hiimg}" >
+																	<img class="imge" th:src="${imge}" th:if="${'https://img.youtube.com/vi/'+livers.videoid+'/hqdefault.jpg'==imge}">
+																	</th:block>
+																</a>
+																
+																<p th:text="${livers.title}"></p>
+																
+																
+															</div>
+														</div>
+													</div>
 												</th:block>
 												<th:block th:each="min3 : ${#numbers.sequence(30,44)}">
 

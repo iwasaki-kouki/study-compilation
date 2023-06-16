@@ -183,14 +183,6 @@ public class LiversController {
 	        }
 	        form.setFavorites(favorites);
         }
-        
-        
-        
-
-
-
-
-
        return form;
     }
     
