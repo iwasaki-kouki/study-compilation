@@ -43,7 +43,7 @@ public class YoutubeController {
     @Autowired
     private YoutubeRepository yourepository;
     
-    @Scheduled(cron = "0 * * * * *", zone = "Asia/Tokyo")
+    @Scheduled(cron = "0 0 0 * * *", zone = "Asia/Tokyo")
     public void main() throws IOException {
     	Iterable<Livers> livers = liversrepository.findAll();
     	/*youtubeURLの取得リスト*/

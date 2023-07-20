@@ -38,23 +38,7 @@ public class FavoritesController {
 
     @Autowired
     private LiversController LiversController;
-    
-    @GetMapping(path = "/favorites")
-    public String index(Principal principal, Model model) throws IOException {
-        Authentication authentication = (Authentication) principal;
-        UserInf user = (UserInf) authentication.getPrincipal();
-        List<Favorites> topics = repository.findByUserId(user.getUserId());
-        List<LiverForm> list = new ArrayList<>();
-        for (Favorites entity : topics) {
-            Livers liver = entity.getLiver();
-            LiverForm form =LiversController.getLivers(user,liver);
-            list.add(form);
-        }
-        
-        model.addAttribute("list", list);
-
-        return "liver/index";
-    }
+   
     
     @RequestMapping(value = "/favorite", method = RequestMethod.POST)
     public String create(Principal principal, @RequestParam("topic_id") long topicId, RedirectAttributes redirAttrs,

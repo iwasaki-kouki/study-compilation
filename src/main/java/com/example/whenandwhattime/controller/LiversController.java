@@ -87,43 +87,65 @@ public class LiversController {
         return "admin/liver";
     }
     
+    
+    
     /*まとめる部分*/
     private List<LiverForm> list(UserInf user) throws IOException{
-    	Iterable<Livers> livers = repository.findAll();
+    	Iterable<Livers> livers = repository. findAllByOrderByIdAsc();
     	List<LiverForm> list = new ArrayList<>();
     	for (Livers entity : livers) {
             LiverForm form = getLivers(user,entity);
             list.add(form);
     	};
+    	
 		return list;
     }
     
      
     @PostMapping(path = "/edit", params = "edit")
     String edit(@RequestParam long id,Model model) throws IOException {
-    	Optional<Livers> liver= repository.findById(id);
-    	Livers entity =liver.get();
-    	model.addAttribute("liver", entity);
+    	Livers liver= repository.findById(id).orElse(new Livers());
+    	LiverForm edit =getLivers(null,liver);
+    	model.addAttribute("liver", edit);
         return "admin/edit";
     }
+    
     @PostMapping(path = "/edit", params = "regist")
     String regist(@RequestParam long id,@Validated @ModelAttribute("liver") EditForm form,BindingResult result,
-            Model model, RedirectAttributes redirAttrs) {
+            Model model, RedirectAttributes redirAttrs,@RequestParam MultipartFile image) throws IOException{
         if (result.hasErrors()) {
             model.addAttribute("hasMessage", true);
             model.addAttribute("class", "alert-danger");
             model.addAttribute("message", "投稿に失敗しました。");
             return "redirect:/adminlivers";
         }
+        boolean isImageLocal = false;
+        
+        if (imageLocal != null) {
+            isImageLocal = new Boolean(imageLocal);
+        }
+        
+        
+        
     	Optional<Livers> liver= repository.findById(id);
     	Livers entity =liver.get();
-
+        File destFile = null;
+        if (image.isEmpty()) {
+        }else {
+            if (isImageLocal) {
+                destFile = saveImageLocal(image, entity);
+                entity.setThumbnail(destFile.getAbsolutePath());
+            } else {
+                entity.setThumbnail("");
+            };
+        }
+        
+        
         entity.setName(form.getName());
-        entity.setTwitter_url(form.getTwitter_url());
-        entity.setYoutube_url(form.getYoutube_url());
+        entity.setTwitter_url(form.getTwitter_URL());
+        entity.setYoutube_url(form.getYoutube_URL());
         entity.setLanguage(form.getLanguage());
 		repository.save(entity);
-
     	return "redirect:/adminlivers";
     }
     
@@ -138,10 +160,11 @@ public class LiversController {
     @PostMapping(path = "/edit", params = "delete")
     public String delete(@RequestParam long id) {
     	yourepository.deleteALLByLivers_id(id);
-    	System.out.println(id);
     	repository.deleteById(id);
         return "redirect:/adminlivers";
     }
+    
+    
     
     public LiverForm getLivers(UserInf user,Livers entity) throws FileNotFoundException, IOException {
         modelMapper.getConfiguration().setAmbiguityIgnored(true);
@@ -171,6 +194,7 @@ public class LiversController {
                 form.setImageData(data.toString());
             }
         }
+        
         if(user!=null) {
 	        List<FavoriteForm> favorites = new ArrayList<FavoriteForm>();
 	        for (Favorites favoriteEntity : entity.getFavorites()) {
@@ -217,6 +241,7 @@ public class LiversController {
     public String create(Principal principal, @Validated @ModelAttribute("form") LiverForm form, BindingResult result,
             Model model, @RequestParam MultipartFile image, RedirectAttributes redirAttrs)
             throws IOException {
+    	
         if (result.hasErrors()) {
             model.addAttribute("hasMessage", true);
             model.addAttribute("class", "alert-danger");
@@ -225,6 +250,7 @@ public class LiversController {
         }
 
         boolean isImageLocal = false;
+        
         if (imageLocal != null) {
             isImageLocal = new Boolean(imageLocal);
         }

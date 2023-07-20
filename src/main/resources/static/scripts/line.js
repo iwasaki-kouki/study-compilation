@@ -1,9 +1,4 @@
 // スクロールさせる        
-
-
-
-
-// モーダルウィンドウを作る
 window.onload = function(){
 	let date = new Date();
 	timeline.scrollTop = 0;
@@ -32,4 +27,5 @@ window.onload = function(){
 			container.removeClass('active');
 		}
 	});
+
 }
