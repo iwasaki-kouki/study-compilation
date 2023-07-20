@@ -87,6 +87,22 @@ public class LiversController {
         return "admin/liver";
     }
     
+    /*検索*/
+    @PostMapping(path = "/search")
+    String search(@RequestParam String name,Model model,Principal principal) throws IOException {
+    	if(name.equals("")) {
+      		index(principal,model);
+      	}else {
+    		Iterable<Livers> livers=repository.findByNameContaining(name);
+        	List<LiverForm> list = new ArrayList<>();
+        	for (Livers entity : livers) {
+                LiverForm form = getLivers(null,entity);
+                list.add(form);
+        	};
+        	model.addAttribute("list", list);
+      	}
+    	return "liver/index";
+    }
     
     
     /*まとめる部分*/
@@ -101,7 +117,11 @@ public class LiversController {
 		return list;
     }
     
-     
+
+    
+    
+    
+    /*編集画面*/
     @PostMapping(path = "/edit", params = "edit")
     String edit(@RequestParam long id,Model model) throws IOException {
     	Livers liver= repository.findById(id).orElse(new Livers());
@@ -146,6 +166,7 @@ public class LiversController {
         entity.setYoutube_url(form.getYoutube_URL());
         entity.setLanguage(form.getLanguage());
 		repository.save(entity);
+
     	return "redirect:/adminlivers";
     }
     

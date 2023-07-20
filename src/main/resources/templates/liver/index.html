@@ -51,9 +51,10 @@
 					</div>
 				</div>
 				<div class="col-1">
-					<input type="text">
-					<button>検索</button>
-					
+				    <form th:action="@{/search}" method="post" enctype="multipart/form-data">
+						<input type="text" name="name">
+						<button>検索</button>
+					</form>
 				</div>
 			</div>
 			
